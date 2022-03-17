@@ -44,7 +44,7 @@ namespace BookStoreApp.BL.Model
 
         public override string ToString()
         {
-            return $"Название отдела:{NameDepartment}.";
+            return $"Название отдела:{NameDepartment}.\nКниги в отделе:{Books}.";
         }
     }
 }
