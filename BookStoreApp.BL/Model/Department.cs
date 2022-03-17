@@ -27,7 +27,7 @@ namespace BookStoreApp.BL.Model
             }
             if (books == null)
             {
-                throw new ArgumentNullException("Название отдела не может быть пустым.", nameof(books));
+                throw new ArgumentNullException("Информация введена не корректно.", nameof(books));
             }
             #endregion
 
