@@ -5,7 +5,6 @@ using System.Xml.Serialization;
 namespace BookStoreApp.BL.Model
 {
 
-    [Serializable]
 
 
     /// <summary>
@@ -15,7 +14,6 @@ namespace BookStoreApp.BL.Model
     public class BookStore
     {
         #region Свойства
-        [XmlElement]
         public string NameBookStore { get; set; }
         public string Adress { get; set; }
         public List<Department> Departments { get; set; }
