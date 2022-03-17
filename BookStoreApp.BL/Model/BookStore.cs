@@ -36,15 +36,15 @@ namespace BookStoreApp.BL.Model
 
             if (string.IsNullOrWhiteSpace(nameBookStore))
             {
-                throw new ArgumentNullException("Название книги не может быть пустым.", nameof(nameBookStore));
+                throw new ArgumentNullException("Название магазина не может быть пустым.", nameof(nameBookStore));
             }
             if (string.IsNullOrWhiteSpace(adress))
             {
-                throw new ArgumentNullException("Название книги не может быть пустым.", nameof(adress));
+                throw new ArgumentNullException("Адрес не должен быть пустым.", nameof(adress));
             }
             if (books == null)
             {
-                throw new ArgumentNullException("Информации о книги не может быть null.", nameof(books));
+                throw new ArgumentNullException("Информации о книги не может быть пустым.", nameof(books));
             }
 
 
