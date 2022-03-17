@@ -18,7 +18,7 @@ namespace BookStoreApp.BL.Model
         [XmlElement]
         public string NameBookStore { get; set; }
         public string Adress { get; set; }
-        public List<Book> Books { get; set; }
+        public List<Department> Departments { get; set; }
 
 
         #endregion
@@ -30,7 +30,7 @@ namespace BookStoreApp.BL.Model
         /// <param name="adress"> Адрес книжного магазина. </param>
         /// <param name="informationsBook"> Информация о книге. </param>
 
-        public BookStore(string nameBookStore, string adress, List<Book> books)
+        public BookStore(string nameBookStore, string adress, List<Department> departments)
         {
             #region Проверка условий
 
@@ -42,9 +42,9 @@ namespace BookStoreApp.BL.Model
             {
                 throw new ArgumentNullException("Адрес не должен быть пустым.", nameof(adress));
             }
-            if (books == null)
+            if (departments == null)
             {
-                throw new ArgumentNullException("Информации о книги не может быть пустым.", nameof(books));
+                throw new ArgumentNullException("Информации о книги не может быть пустым.", nameof(departments));
             }
 
 
@@ -52,52 +52,27 @@ namespace BookStoreApp.BL.Model
 
             NameBookStore = nameBookStore;
             Adress = adress;
-            Books = books;
+            Departments = departments;
 
         }
         public BookStore()
         {
             NameBookStore = "Книжный магазин";
             Adress = "Адрес магазина";
-            Books = new List<Book>();
+            Departments = new List<Department>();
         }
         public override string ToString()
         {
-            return $"Название книжного магазина:{NameBookStore}.\nАдрес:{Adress}.\nИнформации о книге:{Books}.";
+            return $"Название книжного магазина:{NameBookStore}.\nАдрес:{Adress}.\nИнформации о книге:{Departments}.";
         }
 
-        /// <summary>
-        /// Сумма всех книг.
-        /// </summary>
-        public double GetSumBook()
+        public void AddNewDepartments()
         {
-            Book sumBook = new Book();
-            double sum = sumBook.Price;
-            foreach (Book c in Books)
-            {
-                sum += c.Price;
-            }
-            return sum;
 
         }
 
-        /// <summary>
-        /// Добавление книги.
-        /// </summary>
-        /// <param name="nameBook"> название книги. </param>
-        /// <param name="price"> Цена книги. </param>
-        /// <param name="discount"> Скидка книги. </param>
-        /// <param name="department"> Отдел книги. </param>
-        public void AddNewBook(string nameBook, double price, double discount, Department department)
-        {
-            Book newBook = new Book(nameBook, price, discount);
 
-            Books.Add(newBook);
-        }
-        public void BuyBook(int index)
-        {
-            Books.RemoveAt(index);
-        }
+
 
 
 
