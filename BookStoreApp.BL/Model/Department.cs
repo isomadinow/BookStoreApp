@@ -38,6 +38,7 @@ namespace BookStoreApp.BL.Model
         public Department()
         {
             NameDepartment = "Название отдела";
+            Books = books;
         }
 
         public override string ToString()
