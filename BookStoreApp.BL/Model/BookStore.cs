@@ -10,7 +10,7 @@ namespace BookStoreApp.BL.Model
     /// <summary>
     /// Книжный магазин.
     /// </summary>
-
+    [Serializable]
     public class BookStore
     {
         #region Свойства
@@ -26,7 +26,7 @@ namespace BookStoreApp.BL.Model
         /// </summary>
         /// <param name="nameBookStore"> Название книжного магазина. </param>
         /// <param name="adress"> Адрес книжного магазина. </param>
-        /// <param name="informationsBook"> Информация о книге. </param>
+        /// <param name="departments"> отдел магазина. </param>
 
         public BookStore(string nameBookStore, string adress, List<Department> departments)
         {
@@ -63,12 +63,25 @@ namespace BookStoreApp.BL.Model
         {
             return $"Название книжного магазина:{NameBookStore}.\nАдрес:{Adress}.\nИнформации о книге:{Departments}.";
         }
-
-        public void AddNewDepartments()
+        /// <summary>
+        /// Добавление нового отдела. 
+        /// </summary>
+        /// <param name="nameDepartment"> Название в отделе. </param>
+        /// <param name="books"> Создаём список для добавление книг. </param>
+        public void AddNewDepartments(string nameDepartment, List<Book> books)
         {
-
+            Department newDepartment = new Department(nameDepartment, books);
+            Departments.Add(newDepartment);
         }
 
+        /// <summary>
+        /// Удаление отдела.
+        /// </summary>
+        /// <param name="index"> индекс.</param>
+        public void RemoveDepartament(int index)
+        {
+            Departments.RemoveAt(index);
+        }
 
 
 
