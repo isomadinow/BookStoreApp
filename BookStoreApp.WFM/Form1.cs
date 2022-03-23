@@ -22,11 +22,12 @@ namespace BookStoreApp.WFM
 */
     public partial class Form1 : Form
     {
+        BookStore bookStore;
         string uri;
         public Form1()
         {
             InitializeComponent();
-            // uri =@""
+            uri = @"Xml.File";
             dataGridAttribs.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             DataGridViewTextBoxColumn collAttrValue = new DataGridViewTextBoxColumn();
             collAttrValue.HeaderText = "Значение";
@@ -35,20 +36,57 @@ namespace BookStoreApp.WFM
 
         }
 
-        private void RefreshListBoxBookStores()
+        private void RefreshListBoxDepartment()
         {
             listBoxBookStore.Items.Clear();
-            listBoxBookStore.DisplayMember = "nameBookStore";
+            listBoxBookStore.DisplayMember = "Name Department";
+            foreach (Department department in bookStore.Departments)
+            {
+                listBoxDepartment.Items.Add(department);
+            }
+
+        }
+        private void showDepartmentAttributes()
+        {
+            dataGridAttribs.Rows.Clear();
+            dataGridAttribs.Rows.Add(1);
+            dataGridAttribs.Rows[0].HeaderCell.Value = "Название отдела";
+            Department department = listBoxDepartment.SelectedItem as Department;
+            if (department != null)
+            {
+                dataGridAttribs.Rows[0].Cells[0].Value = department.NameDepartment;
+
+            }
+
 
         }
 
-        private void AddBookStore()
+        private void AddNewDepartment()
         {
+            string nameDepartment = dataGridAttribs.Rows[0].Cells[0].Value.ToString();
+            bookStore.AddNewDepartments(nameDepartment);
 
         }
         private void RemoveBookStore()
         {
+            int index = listBoxDepartment.SelectedIndex;
+            if (index >= 0 && index < bookStore.Departments.Count)
+            {
+                bookStore.RemoveDepartament(index);
+                RefreshListBoxDepartment();
+            }
 
+        }
+
+        private void RefreshListBoxBookStore()
+        {
+            listBoxBookStore.Items.Clear();
+            listBoxBookStore.DisplayMember = "Name BookStore";
+            Department department = listBoxDepartment.SelectedItem as Department;
+            if(department != null)
+            {
+                foreach(BookStore bookStore in )
+            }
         }
         private void AddBook()
         {

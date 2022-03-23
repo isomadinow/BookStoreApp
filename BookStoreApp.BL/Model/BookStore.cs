@@ -68,9 +68,9 @@ namespace BookStoreApp.BL.Model
         /// </summary>
         /// <param name="nameDepartment"> Название в отделе. </param>
         /// <param name="books"> Создаём список для добавление книг. </param>
-        public void AddNewDepartments(string nameDepartment, List<Book> books)
+        public void AddNewDepartments(string nameDepartment)
         {
-            Department newDepartment = new Department(nameDepartment, books);
+            Department newDepartment = new Department(nameDepartment);
             Departments.Add(newDepartment);
         }
 
@@ -83,6 +83,10 @@ namespace BookStoreApp.BL.Model
             Departments.RemoveAt(index);
         }
 
+        // TODO: Где создать метод, чтобы определить общую сумму всех книг!!!
+        /// <summary>
+        /// Сумма всех книг.
+        /// </summary>
 
 
 

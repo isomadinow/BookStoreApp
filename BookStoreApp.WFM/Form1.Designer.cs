@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxBookStore = new System.Windows.Forms.ListBox();
-            this.listBoxBooks = new System.Windows.Forms.ListBox();
+            this.listBoxDepartment = new System.Windows.Forms.ListBox();
             this.buttonAddBookStore = new System.Windows.Forms.Button();
             this.buttonRemoveBookStore = new System.Windows.Forms.Button();
             this.buttonAddBook = new System.Windows.Forms.Button();
@@ -62,13 +62,13 @@
             this.listBoxBookStore.Size = new System.Drawing.Size(190, 134);
             this.listBoxBookStore.TabIndex = 14;
             // 
-            // listBoxBooks
+            // listBoxDepartment
             // 
-            this.listBoxBooks.FormattingEnabled = true;
-            this.listBoxBooks.Location = new System.Drawing.Point(261, 34);
-            this.listBoxBooks.Name = "listBoxBooks";
-            this.listBoxBooks.Size = new System.Drawing.Size(190, 134);
-            this.listBoxBooks.TabIndex = 15;
+            this.listBoxDepartment.FormattingEnabled = true;
+            this.listBoxDepartment.Location = new System.Drawing.Point(261, 34);
+            this.listBoxDepartment.Name = "listBoxDepartment";
+            this.listBoxDepartment.Size = new System.Drawing.Size(190, 134);
+            this.listBoxDepartment.TabIndex = 15;
             // 
             // buttonAddBookStore
             // 
@@ -183,7 +183,7 @@
             this.Controls.Add(this.buttonAddBook);
             this.Controls.Add(this.buttonRemoveBookStore);
             this.Controls.Add(this.buttonAddBookStore);
-            this.Controls.Add(this.listBoxBooks);
+            this.Controls.Add(this.listBoxDepartment);
             this.Controls.Add(this.listBoxBookStore);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -198,7 +198,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxBookStore;
-        private System.Windows.Forms.ListBox listBoxBooks;
+        private System.Windows.Forms.ListBox listBoxDepartment;
         private System.Windows.Forms.Button buttonAddBookStore;
         private System.Windows.Forms.Button buttonRemoveBookStore;
         private System.Windows.Forms.Button buttonAddBook;

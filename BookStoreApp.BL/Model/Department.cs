@@ -18,21 +18,18 @@ namespace BookStoreApp.BL.Model
         /// Создать новый отдел.
         /// </summary>
         /// <param name="nameDepartment"> Название отдела. </param>
-        public Department(string nameDepartment, List<Book> books)
+        public Department(string nameDepartment)
         {
             #region Проверка условий
             if (string.IsNullOrWhiteSpace(nameDepartment))
             {
                 throw new ArgumentNullException("Название отдела не может быть пустым.", nameof(nameDepartment));
             }
-            if (books == null)
-            {
-                throw new ArgumentNullException("Где мои Книгиииии!!", nameof(books));
-            }
+
 
             #endregion
             NameDepartment = nameDepartment;
-            Books = books;
+            Books = new List<Book>();
         }
 
         public Department()
@@ -68,20 +65,16 @@ namespace BookStoreApp.BL.Model
             Books.RemoveAt(index);
         }
 
-        //TODO: Где создать метод, чтобы определить общую сумму всех книг!!!
-        ///// <summary>
-        ///// Сумма всех книг.
-        ///// </summary>
-        //public double GetSumBook()
-        //{
-        //    Book sumBook = new Book();
-        //    double sum = sumBook.Price;
-        //    foreach (Book c in Books)
-        //    {
-        //        sum += c.Price;
-        //    }
-        //    return sum;
+        public double GetSumBook()
+        {
+            Book sumBook = new Book();
+            double sum = sumBook.Price;
+            foreach (Book c in Books)
+            {
+                sum += c.Price;
+            }
+            return sum;
 
-        //}
+        }
     }
 }
