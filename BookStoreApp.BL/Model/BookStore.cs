@@ -10,67 +10,59 @@ namespace BookStoreApp.BL.Model
     /// <summary>
     /// Книжный магазин.
     /// </summary>
-    [Serializable]
+
     public class BookStore
     {
         #region Свойства
-        public string NameBookStore { get; set; }
-        public string Adress { get; set; }
-        public List<Department> Departments { get; set; }
 
+        /// <summary>
+        /// Название книжного магазина.
+        /// </summary>
+        public string NameBookStore { get; set; }
+
+        /// <summary>
+        /// Адрес книжного магазина.
+        /// </summary>
+        public string Adress { get; set; }
+
+        /// <summary>
+        /// Список Отделов.
+        /// </summary>
+        public List<Department> Departments { get; set; }
 
         #endregion
 
+
         /// <summary>
-        /// Создаётся новый книжный магазин.
+        /// Конструктор по умолчанию.
         /// </summary>
-        /// <param name="nameBookStore"> Название книжного магазина. </param>
-        /// <param name="adress"> Адрес книжного магазина. </param>
-        /// <param name="departments"> отдел магазина. </param>
-
-        public BookStore(string nameBookStore, string adress, List<Department> departments)
-        {
-            #region Проверка условий
-
-            if (string.IsNullOrWhiteSpace(nameBookStore))
-            {
-                throw new ArgumentNullException("Название магазина не может быть пустым.", nameof(nameBookStore));
-            }
-            if (string.IsNullOrWhiteSpace(adress))
-            {
-                throw new ArgumentNullException("Адрес не должен быть пустым.", nameof(adress));
-            }
-            if (departments == null)
-            {
-                throw new ArgumentNullException("Информации о книги не может быть пустым.", nameof(departments));
-            }
-
-
-            #endregion
-
-            NameBookStore = nameBookStore;
-            Adress = adress;
-            Departments = departments;
-
-        }
         public BookStore()
         {
             NameBookStore = "Книжный магазин";
             Adress = "Адрес магазина";
             Departments = new List<Department>();
         }
+
+
         public override string ToString()
         {
-            return $"Название книжного магазина:{NameBookStore}.\nАдрес:{Adress}.\nИнформации о книге:{Departments}.";
+            return $"Название книжного магазина:{NameBookStore}.\nАдрес:{Adress}.";
         }
+
+
         /// <summary>
         /// Добавление нового отдела. 
         /// </summary>
         /// <param name="nameDepartment"> Название в отделе. </param>
-        /// <param name="books"> Создаём список для добавление книг. </param>
+        /// <param name="bookList"> Создаём список для добавление книг. </param>
+        /// 
         public void AddNewDepartments(string nameDepartment)
         {
-            Department newDepartment = new Department(nameDepartment);
+            Department newDepartment = new Department()
+            {
+                NameDepartment = nameDepartment,
+                Books = new List<Book>()
+            };
             Departments.Add(newDepartment);
         }
 

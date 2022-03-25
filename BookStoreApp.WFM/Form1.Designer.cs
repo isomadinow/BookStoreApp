@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.listBoxBookStore = new System.Windows.Forms.ListBox();
+            this.listBoxBook = new System.Windows.Forms.ListBox();
             this.listBoxDepartment = new System.Windows.Forms.ListBox();
-            this.buttonAddBookStore = new System.Windows.Forms.Button();
-            this.buttonRemoveBookStore = new System.Windows.Forms.Button();
+            this.buttonAddDepartment = new System.Windows.Forms.Button();
+            this.buttonRemoveDepartment = new System.Windows.Forms.Button();
             this.buttonAddBook = new System.Windows.Forms.Button();
             this.buttonRemoveBook = new System.Windows.Forms.Button();
             this.buttonTotalSum = new System.Windows.Forms.Button();
@@ -54,40 +54,43 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Списки объектов";
             // 
-            // listBoxBookStore
+            // listBoxBook
             // 
-            this.listBoxBookStore.FormattingEnabled = true;
-            this.listBoxBookStore.Location = new System.Drawing.Point(15, 34);
-            this.listBoxBookStore.Name = "listBoxBookStore";
-            this.listBoxBookStore.Size = new System.Drawing.Size(190, 134);
-            this.listBoxBookStore.TabIndex = 14;
+            this.listBoxBook.FormattingEnabled = true;
+            this.listBoxBook.Location = new System.Drawing.Point(261, 25);
+            this.listBoxBook.Name = "listBoxBook";
+            this.listBoxBook.Size = new System.Drawing.Size(190, 134);
+            this.listBoxBook.TabIndex = 14;
+            this.listBoxBook.Click += new System.EventHandler(this.listBoxBook_Click);
             // 
             // listBoxDepartment
             // 
             this.listBoxDepartment.FormattingEnabled = true;
-            this.listBoxDepartment.Location = new System.Drawing.Point(261, 34);
+            this.listBoxDepartment.Location = new System.Drawing.Point(18, 25);
             this.listBoxDepartment.Name = "listBoxDepartment";
             this.listBoxDepartment.Size = new System.Drawing.Size(190, 134);
             this.listBoxDepartment.TabIndex = 15;
+            this.listBoxDepartment.Click += new System.EventHandler(this.listBoxDepartment_Click);
             // 
-            // buttonAddBookStore
+            // buttonAddDepartment
             // 
-            this.buttonAddBookStore.Location = new System.Drawing.Point(18, 188);
-            this.buttonAddBookStore.Name = "buttonAddBookStore";
-            this.buttonAddBookStore.Size = new System.Drawing.Size(89, 23);
-            this.buttonAddBookStore.TabIndex = 16;
-            this.buttonAddBookStore.Text = "Добавить ";
-            this.buttonAddBookStore.UseVisualStyleBackColor = true;
-            this.buttonAddBookStore.Click += new System.EventHandler(this.buttonAddBookStore_Click);
+            this.buttonAddDepartment.Location = new System.Drawing.Point(18, 188);
+            this.buttonAddDepartment.Name = "buttonAddDepartment";
+            this.buttonAddDepartment.Size = new System.Drawing.Size(89, 23);
+            this.buttonAddDepartment.TabIndex = 16;
+            this.buttonAddDepartment.Text = "Добавить ";
+            this.buttonAddDepartment.UseVisualStyleBackColor = true;
+            this.buttonAddDepartment.Click += new System.EventHandler(this.buttonAddDepartment_Click);
             // 
-            // buttonRemoveBookStore
+            // buttonRemoveDepartment
             // 
-            this.buttonRemoveBookStore.Location = new System.Drawing.Point(124, 188);
-            this.buttonRemoveBookStore.Name = "buttonRemoveBookStore";
-            this.buttonRemoveBookStore.Size = new System.Drawing.Size(81, 23);
-            this.buttonRemoveBookStore.TabIndex = 17;
-            this.buttonRemoveBookStore.Text = "Удалить";
-            this.buttonRemoveBookStore.UseVisualStyleBackColor = true;
+            this.buttonRemoveDepartment.Location = new System.Drawing.Point(124, 188);
+            this.buttonRemoveDepartment.Name = "buttonRemoveDepartment";
+            this.buttonRemoveDepartment.Size = new System.Drawing.Size(81, 23);
+            this.buttonRemoveDepartment.TabIndex = 17;
+            this.buttonRemoveDepartment.Text = "Удалить";
+            this.buttonRemoveDepartment.UseVisualStyleBackColor = true;
+            this.buttonRemoveDepartment.Click += new System.EventHandler(this.buttonRemoveDepartment_Click);
             // 
             // buttonAddBook
             // 
@@ -97,6 +100,7 @@
             this.buttonAddBook.TabIndex = 18;
             this.buttonAddBook.Text = "Добавить";
             this.buttonAddBook.UseVisualStyleBackColor = true;
+            this.buttonAddBook.Click += new System.EventHandler(this.buttonAddBook_Click);
             // 
             // buttonRemoveBook
             // 
@@ -106,6 +110,7 @@
             this.buttonRemoveBook.TabIndex = 19;
             this.buttonRemoveBook.Text = "Продать";
             this.buttonRemoveBook.UseVisualStyleBackColor = true;
+            this.buttonRemoveBook.Click += new System.EventHandler(this.buttonRemoveBook_Click);
             // 
             // buttonTotalSum
             // 
@@ -115,6 +120,7 @@
             this.buttonTotalSum.TabIndex = 20;
             this.buttonTotalSum.Text = "Суммарная стоимость книг";
             this.buttonTotalSum.UseVisualStyleBackColor = true;
+            this.buttonTotalSum.Click += new System.EventHandler(this.buttonTotalSum_Click);
             // 
             // textBoxSum
             // 
@@ -138,8 +144,9 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(89, 23);
             this.button6.TabIndex = 23;
-            this.button6.Text = "button6";
+            this.button6.Text = "Adress";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // dataGridAttribs
             // 
@@ -157,6 +164,7 @@
             this.buttonSave.TabIndex = 25;
             this.buttonSave.Text = "Сохранить данные";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonLoad
             // 
@@ -166,6 +174,7 @@
             this.buttonLoad.TabIndex = 26;
             this.buttonLoad.Text = "Загрузить данные";
             this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
             // Form1
             // 
@@ -181,13 +190,14 @@
             this.Controls.Add(this.buttonTotalSum);
             this.Controls.Add(this.buttonRemoveBook);
             this.Controls.Add(this.buttonAddBook);
-            this.Controls.Add(this.buttonRemoveBookStore);
-            this.Controls.Add(this.buttonAddBookStore);
+            this.Controls.Add(this.buttonRemoveDepartment);
+            this.Controls.Add(this.buttonAddDepartment);
             this.Controls.Add(this.listBoxDepartment);
-            this.Controls.Add(this.listBoxBookStore);
+            this.Controls.Add(this.listBoxBook);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAttribs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -197,10 +207,10 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox listBoxBookStore;
+        private System.Windows.Forms.ListBox listBoxBook;
         private System.Windows.Forms.ListBox listBoxDepartment;
-        private System.Windows.Forms.Button buttonAddBookStore;
-        private System.Windows.Forms.Button buttonRemoveBookStore;
+        private System.Windows.Forms.Button buttonAddDepartment;
+        private System.Windows.Forms.Button buttonRemoveDepartment;
         private System.Windows.Forms.Button buttonAddBook;
         private System.Windows.Forms.Button buttonRemoveBook;
         private System.Windows.Forms.Button buttonTotalSum;

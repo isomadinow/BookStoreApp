@@ -8,30 +8,20 @@ namespace BookStoreApp.BL.Model
     /// </summary>
     public class Department
     {
-        #region Свойства
+        /// <summary>
+        ///  Название отдела.
+        /// </summary>
         public string NameDepartment { get; set; }
 
+        /// <summary>
+        /// Список книг.
+        /// </summary>
         public List<Book> Books { get; set; }
-        #endregion
+
 
         /// <summary>
-        /// Создать новый отдел.
+        /// Конструктор по умолчанию.
         /// </summary>
-        /// <param name="nameDepartment"> Название отдела. </param>
-        public Department(string nameDepartment)
-        {
-            #region Проверка условий
-            if (string.IsNullOrWhiteSpace(nameDepartment))
-            {
-                throw new ArgumentNullException("Название отдела не может быть пустым.", nameof(nameDepartment));
-            }
-
-
-            #endregion
-            NameDepartment = nameDepartment;
-            Books = new List<Book>();
-        }
-
         public Department()
         {
             NameDepartment = "Название отдела";
@@ -40,7 +30,7 @@ namespace BookStoreApp.BL.Model
 
         public override string ToString()
         {
-            return $"Название отдела:{NameDepartment}.\nКниги в отделе:{Books}.";
+            return $"Название отдела:{NameDepartment}.";
         }
 
 
@@ -52,7 +42,12 @@ namespace BookStoreApp.BL.Model
         /// <param name="discountBook"> Скидки. </param>
         public void AddNewBook(string nameBook, double priceBook, double discountBook)
         {
-            Book newBook = new Book(nameBook, priceBook, discountBook);
+            Book newBook = new Book()
+            {
+                NameBook = nameBook,
+                Price = priceBook,
+                Discount = discountBook
+            };
             Books.Add(newBook);
         }
 
@@ -65,6 +60,10 @@ namespace BookStoreApp.BL.Model
             Books.RemoveAt(index);
         }
 
+        /// <summary>
+        /// Сумма книг с учётом скидки.
+        /// </summary>
+        /// <returns> Сумма.</returns>
         public double GetSumBook()
         {
             Book sumBook = new Book();
