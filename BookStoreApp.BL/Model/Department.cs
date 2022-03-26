@@ -22,12 +22,11 @@ namespace BookStoreApp.BL.Model
         /// <summary>
         /// Конструктор по умолчанию.
         /// </summary>
-        public Department()
+        public Department(string nameDepartment)
         {
-            NameDepartment = "Название отдела";
+            NameDepartment = nameDepartment;
             Books = new List<Book>();
         }
-
         public override string ToString()
         {
             return $"Название отдела:{NameDepartment}.";
@@ -40,14 +39,8 @@ namespace BookStoreApp.BL.Model
         /// <param name="nameBook"> Название книги. </param>
         /// <param name="priceBook"> Цена книги. </param>
         /// <param name="discountBook"> Скидки. </param>
-        public void AddNewBook(string nameBook, double priceBook, double discountBook)
+        public void AddNewBook(Book newBook)
         {
-            Book newBook = new Book()
-            {
-                NameBook = nameBook,
-                Price = priceBook,
-                Discount = discountBook
-            };
             Books.Add(newBook);
         }
 
@@ -55,22 +48,21 @@ namespace BookStoreApp.BL.Model
         /// Удаляем книгу.
         /// </summary>
         /// <param name="nameBook"> Название книги. </param>
-        public void RemoveBook(int index)
+        public void RemoveBook(int ID)
         {
-            Books.RemoveAt(index);
+            Books.RemoveAt(ID);
         }
 
         /// <summary>
-        /// Сумма книг с учётом скидки.
+        /// Сумма книг.
         /// </summary>
         /// <returns> Сумма.</returns>
         public double GetSumBook()
         {
-            Book sumBook = new Book();
-            double sum = sumBook.Price;
-            foreach (Book c in Books)
+            double sum = 0;
+            foreach (Book b in Books)
             {
-                sum += c.Price;
+                sum += b.Price;
             }
             return sum;
 

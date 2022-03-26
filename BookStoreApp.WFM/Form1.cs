@@ -1,34 +1,39 @@
 ﻿using System;
-using System.Windows.Data;
 using System.Windows.Forms;
 using BookStoreApp.BL.Model;
+using BookStoreApp.BL.Provaider;
 namespace BookStoreApp.WFM
 {
-    /*
-   Книжный магазин (название, адрес).
-   Отдел (название).
-   Книга (название, цена, скидка). 
-
-   Знать:
-   • Какие книги имеются в отделе магазина.
-   • Выручку от продажи.
-
-   Делать:
-   • Добавить книгу.
-   • Продать книгу.
-   • Определить стоимость книги с учётом скидки.
-   • Найти суммарную стоимость книг
-   */
     public partial class Form1 : Form
     {
         BookStore bookStore;
-        Department department;
         string uri;
+        private void RefreshListBoxDepartment()
+        {
+            listBoxDepartment.Items.Clear();
+            listBoxBook.Items.Clear();
+
+            foreach (Department department in bookStore.Departments)
+            {
+                listBoxDepartment.Items.Add(department.ToString());
+            }
+
+        }
+        private void RefreshListBoxBooks()
+        {
+            listBoxBook.Items.Clear();
+            foreach (Book book in bookStore.Departments[listBoxDepartment.SelectedIndex].Books)
+            {
+                listBoxBook.Items.Add(book.ToString());
+            }
+        }
         public Form1()
         {
             InitializeComponent();
             bookStore = new BookStore();
             uri = @"BookStoreData.xml";
+            bookStore.AddNewDepartment(new Department(""));
+            RefreshListBoxDepartment();
             dataGridAttribs.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             DataGridViewTextBoxColumn collAttrValue = new DataGridViewTextBoxColumn();
             collAttrValue.HeaderText = "Значение";
@@ -36,189 +41,54 @@ namespace BookStoreApp.WFM
             dataGridAttribs.Columns.Add(collAttrValue);
 
         }
-        /// <summary>
-        /// Обновлять список отделов.
-        /// </summary>
-        private void RefreshListBoxDepartment()
+        private void listBoxDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listBoxDepartment.Items.Clear();
-            listBoxDepartment.DisplayMember = "Name Department";
-            foreach (Department department in bookStore.Departments)
-            {
-                listBoxDepartment.Items.Add(department);
-            }
-
+            RefreshListBoxBooks();
         }
-
-        /// <summary>
-        /// Отображение атрибуты выбранного отдела = DataGridAttribs
-        /// </summary>
-        private void ShowDepartmentAttributes()
+        private void listBoxBook_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridAttribs.Rows.Clear();
-            dataGridAttribs.Rows.Add(1);
-            dataGridAttribs.Rows[0].HeaderCell.Value = "Название отдела";
-            Department department = listBoxDepartment.SelectedItem as Department;
-            if (department != null)
-            {
-                dataGridAttribs.Rows[0].Cells[0].Value = department.NameDepartment;
-                RefreshListBoxDepartment();
-            }
-        }
-        private void AddNewDepartment()
-        {
-            string nameDepartment = dataGridAttribs.Rows[0].Cells[0].Value.ToString();
-            bookStore.AddNewDepartments(nameDepartment);
+            ShowBookAttributes();
 
-        }
-        private void RemoveDepartment()
-        {
-            int index = listBoxDepartment.SelectedIndex;
-            if (index >= 0 && index < bookStore.Departments.Count)
-            {
-                bookStore.RemoveDepartament(index);
-                RefreshListBoxDepartment();
-            }
-
-        }
-
-        private void RefreshListBoxBooks()
-        {
-            listBoxBook.Items.Clear();
-            listBoxBook.DisplayMember = "Name Book";
-            Department department = listBoxDepartment.SelectedItem as Department;
-            if (department != null)
-            {
-                foreach (Book book in department.Books)
-                {
-                    listBoxBook.Items.Add(book);
-                }
-            }
         }
         private void ShowBookAttributes()
         {
             dataGridAttribs.Rows.Clear();
-            dataGridAttribs.Rows.Add(3);
-            dataGridAttribs.Rows[0].HeaderCell.Value = "Название";
-            dataGridAttribs.Rows[1].HeaderCell.Value = "Цена";
-            dataGridAttribs.Rows[2].HeaderCell.Value = "Скидка";
+            dataGridAttribs.Rows.Add(4);
+            dataGridAttribs.Rows[0].HeaderCell.Value = "Код";
+            dataGridAttribs.Rows[1].HeaderCell.Value = "Название";
+            dataGridAttribs.Rows[2].HeaderCell.Value = "Цена";
+            dataGridAttribs.Rows[3].HeaderCell.Value = "Скидка";
 
-            Book book = listBoxDepartment.SelectedItem as Book;
+            Book book = bookStore.Departments[listBoxDepartment.SelectedIndex].Books[listBoxBook.SelectedIndex];
             if (book != null)
             {
-                dataGridAttribs.Rows[0].Cells[0].Value = book.NameBook;
-                dataGridAttribs.Rows[1].Cells[0].Value = book.Price;
+                dataGridAttribs.Rows[0].Cells[0].Value = book.ID;
+                dataGridAttribs.Rows[1].Cells[0].Value = book.NameBook;
+                dataGridAttribs.Rows[2].Cells[0].Value = book.Price;
                 dataGridAttribs.Rows[3].Cells[0].Value = book.Discount;
             }
         }
-        private void AddNewBook()
+        private void buttonAddBook_Click(object sender, EventArgs e)
         {
-            string nameBook = dataGridAttribs.Rows[0].Cells[0].Value.ToString();
-            int price = 0;
-            int.TryParse(dataGridAttribs.Rows[1].Cells[0].Value.ToString(), out price);
-            int discount = 0;
-            int.TryParse(dataGridAttribs.Rows[2].Cells[0].Value.ToString(), out discount);
-
-            Department department = listBoxDepartment.SelectedItem as Department;
-            if (department != null)
-            {
-                department.AddNewBook(nameBook, price, discount);
-            }
+            bookStore.Departments[listBoxDepartment.SelectedIndex].AddNewBook(new Book(0, "", 2, 3));
+            RefreshListBoxBooks();
         }
-        private void RemoveBook()
+        private void buttonRemoveBook_Click(object sender, EventArgs e)
         {
-            Department department = listBoxDepartment.SelectedItem as Department;
-            if (department != null)
-            {
-                int index = listBoxBook.SelectedIndex;
-                if (index >= 0 && index < department.Books.Count)
-                {
-                    department.RemoveBook(index);
-                    RefreshListBoxBooks();
-                }
-            }
-        }
-        private void TotalSummBooks()
-        {
-            MessageBox.Show(string.Format($"{department.GetSumBook()} $."), "Общая сумма книг.");
-        }
-
-
-        private void ShowAdress()
-        {
-            MessageBox.Show(string.Format("Улица Мичурина57."));
-        }
-        private void SaveData()
-        {
-            // XmlDataProvider<BookStore>.SaveObject(uri, bookStore);
-            MessageBox.Show("Данные сохранены!");
-        }
-        private void LoadData()
-        {
-            //bookStore = XmlDataProvider<BookStore>.LoadObject(uri);
-            RefreshListBoxDepartment();
-            MessageBox.Show("Данные Загружены!");
-
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            this.Text = "Книжный магазин";
-            RefreshListBoxDepartment();
-            textBoxSum.Text = "10";
-
-        }
-
-        private void listBoxDepartment_Click(object sender, EventArgs e)
-        {
-            ShowDepartmentAttributes();
+            int ID = listBoxBook.SelectedIndex;
+            bookStore.Departments[listBoxDepartment.SelectedIndex].RemoveBook(ID);
             RefreshListBoxBooks();
         }
 
-        private void listBoxBook_Click(object sender, EventArgs e)
-        {
-            ShowBookAttributes();
-        }
 
-        private void buttonAddDepartment_Click(object sender, EventArgs e)
+        private void buttonChek_Click_1(object sender, EventArgs e)
         {
-            AddNewDepartment();
-        }
-
-        private void buttonRemoveDepartment_Click(object sender, EventArgs e)
-        {
-            RemoveDepartment();
-        }
-
-        private void buttonAddBook_Click(object sender, EventArgs e)
-        {
-            AddNewBook();
-        }
-
-        private void buttonRemoveBook_Click(object sender, EventArgs e)
-        {
-            RemoveBook();
-        }
-
-        private void buttonTotalSum_Click(object sender, EventArgs e)
-        {
-            TotalSummBooks();
+            MessageBox.Show(string.Format($"{ bookStore.Departments[listBoxDepartment.SelectedIndex].Books[listBoxBook.SelectedIndex].Cost()} p."));
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            ShowAdress();
-        }
-
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            SaveData();
-        }
-
-        private void buttonLoad_Click(object sender, EventArgs e)
-        {
-            LoadData();
+            MessageBox.Show(string.Format($"{bookStore.Revenue} p."));
         }
     }
 }

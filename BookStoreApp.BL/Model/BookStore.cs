@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+
 
 namespace BookStoreApp.BL.Model
 {
@@ -10,7 +10,7 @@ namespace BookStoreApp.BL.Model
     /// <summary>
     /// Книжный магазин.
     /// </summary>
-
+    [Serializable]
     public class BookStore
     {
         #region Свойства
@@ -24,6 +24,7 @@ namespace BookStoreApp.BL.Model
         /// Адрес книжного магазина.
         /// </summary>
         public string Adress { get; set; }
+        public double Revenue { get; set; }
 
         /// <summary>
         /// Список Отделов.
@@ -32,53 +33,18 @@ namespace BookStoreApp.BL.Model
 
         #endregion
 
-
-        /// <summary>
-        /// Конструктор по умолчанию.
-        /// </summary>
-        public BookStore()
+        public void AddNewDepartment(Department department)
         {
-            NameBookStore = "Книжный магазин";
-            Adress = "Адрес магазина";
-            Departments = new List<Department>();
+            Departments.Add(department);
         }
+
+
 
 
         public override string ToString()
         {
             return $"Название книжного магазина:{NameBookStore}.\nАдрес:{Adress}.";
         }
-
-
-        /// <summary>
-        /// Добавление нового отдела. 
-        /// </summary>
-        /// <param name="nameDepartment"> Название в отделе. </param>
-        /// <param name="bookList"> Создаём список для добавление книг. </param>
-        /// 
-        public void AddNewDepartments(string nameDepartment)
-        {
-            Department newDepartment = new Department()
-            {
-                NameDepartment = nameDepartment,
-                Books = new List<Book>()
-            };
-            Departments.Add(newDepartment);
-        }
-
-        /// <summary>
-        /// Удаление отдела.
-        /// </summary>
-        /// <param name="index"> индекс.</param>
-        public void RemoveDepartament(int index)
-        {
-            Departments.RemoveAt(index);
-        }
-
-        // TODO: Где создать метод, чтобы определить общую сумму всех книг!!!
-        /// <summary>
-        /// Сумма всех книг.
-        /// </summary>
 
 
 
